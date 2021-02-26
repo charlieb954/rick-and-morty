@@ -1,1 +1,1 @@
-from rick_and_morty.api import RickandMorty
+from rick_and_morty.api import *
