@@ -1,1 +1,3 @@
-from rick_and_morty.api import *
+from . import characters
+from . import episodes
+from . import locations

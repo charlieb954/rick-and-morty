@@ -1,7 +1,14 @@
 import requests
 
-HOST = "https://rickandmortyapi.com/api"
-DOCS = "https://rickandmortyapi.com/documentation/"
+__HOST = "https://rickandmortyapi.com/api"
+__DOCS = "https://rickandmortyapi.com/documentation/"
+
+__all__ = ['get_character_results',
+            'get_character_info',
+            'get_character_single',
+            'get_character_all',
+            'get_character_multi',
+            'character_filter']
 
 def get_character_results(page_num=1):
     """
@@ -19,7 +26,7 @@ def get_character_results(page_num=1):
     params = {
         "page": page_num
         }
-    data = requests.get(HOST + endpoint, params).json()
+    data = requests.get(__HOST + endpoint, params).json()
     return data['results']
 
 def get_character_info():
@@ -32,10 +39,10 @@ def get_character_info():
     
     Returns
     -------
-    json: information from rick and morty api
+    json: information about the characters available on the rick and morty API
     """
     endpoint = "/character"
-    data = requests.get(HOST + endpoint).json()
+    data = requests.get(__HOST + endpoint).json()
     return data['info']
 
 def get_character_single(id):
@@ -50,12 +57,9 @@ def get_character_single(id):
     -------
     json: information about the character
     """
-    endpoint = "/character"
-    params = {
-        "id": int(id)
-    }
-    data = requests.get(HOST + endpoint, params).json()
-    return data['results']
+    endpoint = f"/character/{int(id)}"
+    data = requests.get(__HOST + endpoint).json()
+    return data
 
 def get_character_all():
     """
@@ -67,7 +71,7 @@ def get_character_all():
     
     Returns
     -------
-    results = list: dictionaries of characters
+    results = tuple: characters id, characters name
     """
     results = []
     num_of_pages = get_character_info()['pages'] + 1
@@ -75,7 +79,7 @@ def get_character_all():
     for i in range(1, num_of_pages):
         chars = get_character_results(i)
         for char in chars:
-            results.append(char)
+            results.append((char['id'], char['name']))
         
     return results
 
@@ -122,69 +126,6 @@ def character_filter(name=None, status=None, species=None, type=None, gender=Non
         "gender": gender
     }
     params = {k:v for k,v in all_params.items() if v != None}
-    data = requests.get(HOST + endpoint, params).json()
+    data = requests.get(__HOST + endpoint, params).json()
     
     return data
-
-def get_location_results(page_num=1):
-    endpoint = "/location"
-    params = {
-        "page": page_num
-        }
-    data = requests.get(HOST + endpoint, params).json()
-    return data['results']
-
-def get_location_info():
-    """
-    Get summary of number of pages and characters available
-    
-    Parameters
-    ----------
-    None
-    
-    Returns
-    -------
-    json: information from rick and morty api
-    """
-    endpoint = "/location"
-    data = requests.get(HOST + endpoint).json()
-    return data['info']
-
-def get_location_single(id):
-    pass
-
-def get_locations_all():
-    results = []
-    num_of_pages = get_location_info()['pages'] + 1
-
-    for i in range(1, num_of_pages):
-        locations = get_location_results(i)
-        for loc in locations:
-            results.append(loc['name'])
-    return results
-
-def get_episode_results(page_num=1):
-    endpoint = "/episode"
-    params = {
-        "page": page_num
-        }
-    data = requests.get(HOST + endpoint, params).json()
-    return data['results']
-
-def get_episode_info():
-    endpoint = "/episode"
-    data = requests.get(HOST + endpoint).json()
-    return data['info']
-
-def get_episode_single(id):
-    pass
-
-def get_episode_all():
-    results = []
-    num_of_pages = get_episode_info()['pages'] + 1
-
-    for i in range(1, num_of_pages):
-        episodes = get_episode_results(i)
-        for epi in episodes:
-            results.append(epi['name'])
-    return results
