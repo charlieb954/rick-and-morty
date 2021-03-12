@@ -8,7 +8,8 @@ __all__ = ['get_character_results',
             'get_character_single',
             'get_character_all',
             'get_character_multi',
-            'character_filter']
+            'character_filter'
+            ]
 
 def get_character_results(page_num=1):
     """

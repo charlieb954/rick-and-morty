@@ -3,6 +3,14 @@ import requests
 __HOST = "https://rickandmortyapi.com/api"
 __DOCS = "https://rickandmortyapi.com/documentation/"
 
+__all__ = ['get_episode_results',
+            'get_episode_info',
+            'get_episode_single',
+            'get_episode_all',
+            #'get_episode_multi',
+            #'episode_filter'
+            ]
+
 def get_episode_results(page_num=1):
     """
     Get 20 episodes from the specified page number

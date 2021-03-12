@@ -3,6 +3,14 @@ import requests
 __HOST = "https://rickandmortyapi.com/api"
 __DOCS = "https://rickandmortyapi.com/documentation/"
 
+__all__ = ['get_location_results',
+            'get_location_info',
+            'get_location_single',
+            'get_location_all',
+            #'get_location_multi',
+            #'location_filter'
+            ]
+
 def get_location_results(page_num=1):
     """
     Get 20 locations from the specified page number
