@@ -81,5 +81,5 @@ def get_episode_all():
     for i in range(1, num_of_pages):
         episodes = get_episode_results(i)
         for epi in episodes:
-            results.append(epi['name'])
+            results.append((epi['id'], epi['name']))
     return results

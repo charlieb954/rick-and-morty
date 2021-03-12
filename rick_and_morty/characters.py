@@ -104,7 +104,9 @@ def get_character_multi(ls):
 
 def character_filter(name=None, status=None, species=None, type=None, gender=None):
     """
-    Get characters that match criteria of 1 or more filters
+    Get characters that match criteria of 1 or more filters.
+    Name will include similar matches. For example:
+    Morty will match Morty Smith and Alien Morty
     
     Parameters
     ----------
