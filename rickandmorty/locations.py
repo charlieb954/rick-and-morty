@@ -3,84 +3,72 @@ import requests
 __HOST = "https://rickandmortyapi.com/api"
 __DOCS = "https://rickandmortyapi.com/documentation/"
 
-__all__ = ['get_location_results',
-            'get_location_info',
-            'get_location_single',
-            'get_location_all',
-            #'get_location_multi',
-            #'location_filter'
-            ]
+__all__ = [
+    "Locations"
+]
 
-def get_location_results(page_num=1):
-    """
-    Get 20 locations from the specified page number
-    
-    Parameters
-    ----------
-    page_num = int: page to return
-    
-    Returns
-    -------
-    json: 20 characters with various fields
-    """
-    endpoint = "/location"
-    params = {
-        "page": page_num
-        }
-    data = requests.get(__HOST + endpoint, params).json()
-    return data['results']
+class Locations:
+    HOST = "https://rickandmortyapi.com/api"
+    DOCS = "https://rickandmortyapi.com/documentation/"
 
-def get_location_info():
-    """
-    Get summary of number of pages and locations available
-    
-    Parameters
-    ----------
-    None
-    
-    Returns
-    -------
-    json: information about the locations available on the rick and morty API.
-    """
-    endpoint = "/location"
-    data = requests.get(__HOST + endpoint).json()
-    return data['info']
+    def get_location_results(self, page_num: int=1) -> dict:
+        """get 20 locations from the specified page number
 
-def get_location_single(id):
-    """
-    Get a location from their ID
-    
-    Parameters
-    ----------
-    id = int: id of the location to be returned
-    
-    Returns
-    -------
-    json: information about the location
-    """
-    endpoint = f"/location/{int(id)}"
+        Args
+            page_num (int): page to return
 
-    data = requests.get(__HOST + endpoint).json()
-    return data
+        Returns
+            (dict): 20 characters with various fields
+        """
+        endpoint = "/location"
+        params = {"page": page_num}
+        data = requests.get(__HOST + endpoint, params).json()
+        return data["results"]
 
-def get_location_all():
-    """
-    Get a list of all the location names from the api
-    
-    Parameters
-    ----------
-    None
-    
-    Returns
-    -------
-    results = tuple: location id, location names
-    """
-    results = []
-    num_of_pages = get_location_info()['pages'] + 1
 
-    for i in range(1, num_of_pages):
-        locations = get_location_results(i)
-        for loc in locations:
-            results.append((loc['id'], loc['name']))
-    return results
+    def get_location_info(self) -> dict:
+        """get summary of number of pages and locations available
 
+        Args
+            None
+
+        Returns
+            (dict): information about the locations available on the rick and morty API.
+        """
+        endpoint = "/location"
+        data = requests.get(__HOST + endpoint).json()
+        return data["info"]
+
+
+    def get_location_single(self, id: int) -> dict:
+        """get a location from their ID
+
+        Args
+            id (int): id of the location to be returned
+
+        Returns
+            (dict): information about the location
+        """
+        endpoint = f"/location/{int(id)}"
+
+        data = requests.get(__HOST + endpoint).json()
+        return data
+
+
+    def get_location_all(self) -> tuple:
+        """get a list of all the location names from the api
+
+        Args
+            None
+
+        Returns
+            results = tuple: location id, location names
+        """
+        results = []
+        num_of_pages = get_location_info()["pages"] + 1
+
+        for i in range(1, num_of_pages):
+            locations = get_location_results(i)
+            for loc in locations:
+                results.append((loc["id"], loc["name"]))
+        return results
