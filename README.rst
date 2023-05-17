@@ -27,10 +27,25 @@ Python API wrapper to query https://rickandmortyapi.com/
 * Documentation: https://rickandmorty.readthedocs.io.
 
 
+Examples
+--------
+..  code-block:: python
+        
+        from rickandmorty import Characters, Episodes, Locations
+
+        characters, episodes, locations = Characters(), Episodes(), Locations()
+
+        all_characters = characters.get_characters_all()
+        all_episodes = characters.get_episodes_all()
+        all_locations = characters.get_locations_all()
+
+
 Features
 --------
 
-* TODO
+* Retrieve all character information from the Rick and Morty API.
+* Retrieve all episode information from the Rick and Morty API.
+* Retrieve all location information from the Rick and Morty API.
 
 Credits
 -------
