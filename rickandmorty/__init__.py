@@ -7,3 +7,5 @@ __version__ = "0.1.0"
 from .characters import Characters
 from .episodes import Episodes
 from .locations import Locations
+
+__all__ = [Characters, Episodes, Locations]
