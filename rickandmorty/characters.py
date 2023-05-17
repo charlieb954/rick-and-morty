@@ -1,4 +1,5 @@
 import requests
+import urllib3
 
 __all__ = ["Characters"]
 
@@ -73,7 +74,7 @@ class Characters:
         Returns
             results (list): character dictionaries for ids
         """
-        results = [self.get_character_single(id)['results'] for id in ids]
+        results = [self.get_character_single(id)["results"] for id in ids]
 
         return results
 
