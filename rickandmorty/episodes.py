@@ -28,7 +28,7 @@ class Episodes:
             None
 
         Returns
-            (dict): information about the episodes available on the rick and morty API.
+            (dict): info on the episodes available on the rick and morty API.
         """
         endpoint = "/episode"
         data = requests.get(self.HOST + endpoint).json()

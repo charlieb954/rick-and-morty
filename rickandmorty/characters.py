@@ -29,7 +29,7 @@ class Characters:
             None
 
         Returns
-            (dict): information about the characters available on the rick and morty API
+            (dict): info on the characters available on the rick and morty API
         """
         endpoint = "/character"
         data = requests.get(self.HOST + endpoint).json()
@@ -112,7 +112,7 @@ class Characters:
             "type": type,
             "gender": gender,
         }
-        params = {k: v for k, v in all_params.items() if v != None}
+        params = {k: v for k, v in all_params.items() if v is not None}
         data = requests.get(self.HOST + endpoint, params).json()
 
         return data
