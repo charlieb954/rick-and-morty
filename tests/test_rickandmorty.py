@@ -5,20 +5,21 @@
 import pytest
 
 
-from rickandmorty import rickandmorty
+from rickandmorty import Characters, Episodes, Locations
 
 
-@pytest.fixture
-def response():
-    """Sample pytest fixture.
+characters = Characters()
+episodes = Episodes()
+locations = Locations()
 
-    See more at: http://doc.pytest.org/en/latest/fixture.html
-    """
-    # import requests
-    # return requests.get('https://github.com/audreyr/cookiecutter-pypackage')
+def test_get_character_single():
+    character = characters.get_character_single(id=826)
+    assert character['name'] == 'Butter Robot'
 
+def test_get_episode_single():
+    episode = episodes.get_episode_single(3)
+    assert episode['name'] == 'Anatomy Park'
 
-def test_content(response):
-    """Sample pytest test function with the pytest fixture as an argument."""
-    # from bs4 import BeautifulSoup
-    # assert 'GitHub' in BeautifulSoup(response.content).title.string
+def test_get_location_single():
+    location = locations.get_location_single(id=1)
+    assert location['name'] == 'Earth (C-137)'
