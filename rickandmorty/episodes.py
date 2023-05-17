@@ -4,7 +4,7 @@ __all__ = ["Episodes"]
 
 
 class Episodes:
-    HOST = "https://rickandmortyapi.com/api"
+    HOST = "https://rickandmortyapi.com/api/episode/"
     DOCS = "https://rickandmortyapi.com/documentation/"
 
     def get_episode_results(self, page_num: int = 1) -> dict:
@@ -16,9 +16,8 @@ class Episodes:
         Returns
             (dict): 20 episodes with various fields
         """
-        endpoint = "/episode"
         params = {"page": page_num}
-        data = requests.get(self.HOST + endpoint, params).json()
+        data = requests.get(self.HOST, params).json()
         return data["results"]
 
     def get_episode_info(self) -> dict:
@@ -30,8 +29,7 @@ class Episodes:
         Returns
             (dict): info on the episodes available on the rick and morty API.
         """
-        endpoint = "/episode"
-        data = requests.get(self.HOST + endpoint).json()
+        data = requests.get(self.HOST).json()
         return data["info"]
 
     def get_episode_single(self, id: int):
@@ -43,9 +41,7 @@ class Episodes:
         Returns
             (dict): information about the episode
         """
-        endpoint = f"/episode/{int(id)}"
-
-        data = requests.get(self.HOST + endpoint).json()
+        data = requests.get(self.HOST + str(id)).json()
         return data
 
     def get_episode_all(self) -> list:

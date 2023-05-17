@@ -4,7 +4,7 @@ __all__ = ["Locations"]
 
 
 class Locations:
-    HOST = "https://rickandmortyapi.com/api"
+    HOST = "https://rickandmortyapi.com/api/location/"
     DOCS = "https://rickandmortyapi.com/documentation/"
 
     def get_location_results(self, page_num: int = 1) -> dict:
@@ -16,9 +16,8 @@ class Locations:
         Returns
             (dict): 20 characters with various fields
         """
-        endpoint = "/location"
         params = {"page": page_num}
-        data = requests.get(self.HOST + endpoint, params).json()
+        data = requests.get(self.HOST, params).json()
         return data["results"]
 
     def get_location_info(self) -> dict:
@@ -31,7 +30,7 @@ class Locations:
             (dict): info on the locations available on the rick and morty API.
         """
         endpoint = "/location"
-        data = requests.get(self.HOST + endpoint).json()
+        data = requests.get(self.HOST).json()
         return data["info"]
 
     def get_location_single(self, id: int) -> dict:
@@ -43,9 +42,8 @@ class Locations:
         Returns
             (dict): information about the location
         """
-        endpoint = f"/location/{int(id)}"
 
-        data = requests.get(self.HOST + endpoint).json()
+        data = requests.get(self.HOST + str(id)).json()
         return data
 
     def get_location_all(self) -> tuple:
@@ -60,8 +58,8 @@ class Locations:
         results = []
         num_of_pages = self.get_location_info()["pages"] + 1
 
-        for i in range(1, num_of_pages):
-            locations = self.get_location_results(i)
+        for page in range(1, num_of_pages):
+            locations = self.get_location_results(page)
             for loc in locations:
                 results.append((loc["id"], loc["name"]))
         return results

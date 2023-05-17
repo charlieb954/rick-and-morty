@@ -4,7 +4,7 @@ __all__ = ["Characters"]
 
 
 class Characters:
-    HOST = "https://rickandmortyapi.com/api"
+    HOST = "https://rickandmortyapi.com/api/character/"
     DOCS = "https://rickandmortyapi.com/documentation/"
 
     def get_character_results(self, page_num: int = 1) -> dict:
@@ -16,9 +16,8 @@ class Characters:
         Returns
             dict: 20 characters with various fields
         """
-        endpoint = "/character"
         params = {"page": page_num}
-        data = requests.get(self.HOST + endpoint, params).json()
+        data = requests.get(self.HOST, params).json()
 
         return data["results"]
 
@@ -31,8 +30,7 @@ class Characters:
         Returns
             (dict): info on the characters available on the rick and morty API
         """
-        endpoint = "/character"
-        data = requests.get(self.HOST + endpoint).json()
+        data = requests.get(self.HOST).json()
         return data["info"]
 
     def get_character_single(self, id: int) -> dict:
@@ -44,8 +42,7 @@ class Characters:
         Returns
             dict: information about the character
         """
-        endpoint = f"/character/{int(id)}"
-        data = requests.get(self.HOST + endpoint).json()
+        data = requests.get(self.HOST + str(id)).json()
         return data
 
     def get_character_all(self) -> dict:
@@ -67,19 +64,17 @@ class Characters:
 
         return results
 
-    def get_character_multi(self, ls: list) -> list:
+    def get_character_multi(self, ids: list) -> list:
         """get mutliple characters using their id
 
         Args
-            ls (list): of integer ids
+            ids (list): of integer ids
 
         Returns
             results (list): character dictionaries for ids
         """
-        results = []
-        for i in ls:
-            char = self.get_character_single(i)
-            results.append(char["results"])
+        results = [self.get_character_single(id)['results'] for id in ids]
+
         return results
 
     def character_filter(
@@ -104,7 +99,6 @@ class Characters:
         Returns
             data (dict): characters matching criteria
         """
-        endpoint = "/character"
         all_params = {
             "name": name,
             "status": status,
@@ -113,6 +107,6 @@ class Characters:
             "gender": gender,
         }
         params = {k: v for k, v in all_params.items() if v is not None}
-        data = requests.get(self.HOST + endpoint, params).json()
+        data = requests.get(self.HOST, params).json()
 
         return data
