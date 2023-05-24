@@ -4,6 +4,7 @@
 
 
 from rickandmorty import Characters, Episodes, Locations
+from pandas import DataFrame
 
 
 characters = Characters()
@@ -13,14 +14,19 @@ locations = Locations()
 
 def test_get_character_single():
     character = characters.get_character_single(id=826)
-    assert character['name'] == 'Butter Robot'
+    assert character["name"] == "Butter Robot"
 
 
 def test_get_episode_single():
     episode = episodes.get_episode_single(3)
-    assert episode['name'] == 'Anatomy Park'
+    assert episode["name"] == "Anatomy Park"
 
 
 def test_get_location_single():
     location = locations.get_location_single(id=1)
-    assert location['name'] == 'Earth (C-137)'
+    assert location["name"] == "Earth (C-137)"
+
+
+def test_get_character_results():
+    character = characters.get_character_results(return_format="pandas")
+    assert isinstance(character, DataFrame)
