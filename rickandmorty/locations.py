@@ -29,7 +29,6 @@ class Locations:
         Returns
             (dict): info on the locations available on the rick and morty API.
         """
-        endpoint = "/location"
         data = requests.get(self.HOST).json()
         return data["info"]
 
