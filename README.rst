@@ -36,8 +36,8 @@ Examples
         characters, episodes, locations = Characters(), Episodes(), Locations()
 
         all_characters = characters.get_characters_all()
-        all_episodes = characters.get_episodes_all()
-        all_locations = characters.get_locations_all()
+        all_episodes = episodes.get_episodes_all()
+        all_locations = locations.get_locations_all()
 
 
 Features
