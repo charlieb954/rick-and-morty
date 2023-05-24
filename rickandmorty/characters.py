@@ -1,5 +1,5 @@
 import requests
-import urllib3
+from pandas import DataFrame
 
 __all__ = ["Characters"]
 
@@ -8,7 +8,9 @@ class Characters:
     HOST = "https://rickandmortyapi.com/api/character/"
     DOCS = "https://rickandmortyapi.com/documentation/"
 
-    def get_character_results(self, page_num: int = 1) -> dict:
+    def get_character_results(
+        self, page_num: int = 1, return_format: bool = "json"
+    ) -> dict:
         """get 20 characters from the specified page number
 
         Args
@@ -20,7 +22,10 @@ class Characters:
         params = {"page": page_num}
         data = requests.get(self.HOST, params).json()
 
-        return data["results"]
+        if return_format == "pandas":
+            return DataFrame(data["results"])
+        else:
+            return data["results"]
 
     def get_character_info(self) -> dict:
         """get summary of number of pages and characters available
