@@ -28,5 +28,5 @@ def test_get_location_single():
 
 
 def test_get_character_results():
-    character = characters.get_character_results(return_format="pandas")
-    assert isinstance(character, DataFrame)
+    _, df = characters.get_character_results(to_pandas=True)
+    assert isinstance(df, DataFrame)
